@@ -55,15 +55,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Events\UserEvents.cs" />
     <Compile Include="FileDataBaseFolder\FileDataBase.cs" />
     <Compile Include="Model\Client.cs" />
     <Compile Include="ComandsMVVM.cs" />
     <Compile Include="FileDataBaseFolder\DataOperations.cs" />
     <Compile Include="Model\Transaction.cs" />
     <Compile Include="ViewModel\AddClientViewModel.cs" />
-    <Compile Include="ViewModel\AddClientWindowViewModel.cs" />
     <Compile Include="ViewModel\AdminPageViewModel.cs" />
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
+    <Compile Include="View\AddClientWin.xaml.cs">
+      <DependentUpon>AddClientWin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\AdminPage.xaml.cs">
       <DependentUpon>AdminPage.xaml</DependentUpon>
     </Compile>
@@ -116,6 +119,10 @@
     <Page Include="themes\Core.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\AddClientWin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\AdminPage.xaml">
       <SubType>Designer</SubType>

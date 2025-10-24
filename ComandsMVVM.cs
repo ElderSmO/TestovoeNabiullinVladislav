@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace TestovoeNabiullinVladislav
 {
-    internal class ComandsMVVM : ICommand
+    public class ComandsMVVM : ICommand
     {
         private Action<object> execute;
         private Func<object, bool> canExecute;

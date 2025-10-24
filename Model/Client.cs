@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TestovoeNabiullinVladislav
 {
-    class Client : INotifyPropertyChanged
+   public class Client : INotifyPropertyChanged
     {
         private int id;
         private string name;

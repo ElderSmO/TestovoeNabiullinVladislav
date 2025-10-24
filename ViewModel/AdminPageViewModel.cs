@@ -7,7 +7,7 @@ namespace TestovoeNabiullinVladislav.ViewModel
 {
     internal class AdminPageViewModel : INotifyPropertyChanged
     {
-        AddClientWindow addClientWindow;
+       
        public Client SelectedClient
         {
             get => selectedClient;
@@ -20,7 +20,7 @@ namespace TestovoeNabiullinVladislav.ViewModel
         public ObservableCollection<Client> clientsTable { get; set; }
         public AdminPageViewModel()
         {
-            addClientWindow = new AddClientWindow();
+
         }
 
         private ComandsMVVM addUserCommand;
@@ -33,7 +33,8 @@ namespace TestovoeNabiullinVladislav.ViewModel
                 return addUserCommand ??
                   (addUserCommand = new ComandsMVVM(obj =>
                   {
-                      addClientWindow.ShowDialog();
+                      AddClientWin addClientWin = new AddClientWin();
+                      addClientWin.ShowDialog();
                   }));
             }
         }

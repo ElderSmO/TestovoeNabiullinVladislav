@@ -1,0 +1,43 @@
+﻿<Window x:Class="TestovoeNabiullinVladislav.View.AddClientWin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestovoeNabiullinVladislav.View"
+        mc:Ignorable="d"
+        Title="AddClientWindow1" Height="270" Width="500" ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Label HorizontalAlignment="Center" FontSize="23" Margin="6" Content="Добавление клиента"/>
+        <StackPanel DataContext="{Binding Client}" Grid.Row="1" Orientation="Horizontal">
+        <StackPanel Grid.Row="1" Margin="6">
+            <StackPanel Orientation="Horizontal" Margin="6">
+                <Label Content="Имя" Margin="0,0,10,0"/>
+                    <TextBox Width="120" Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="6">
+                <Label Content="Валюта" Margin="0,0,10,0"/>
+                <ComboBox Width="120"/>
+            </StackPanel>
+        </StackPanel>
+            <StackPanel Grid.Row="1" Margin="6">
+                <StackPanel Orientation="Horizontal" Margin="6">
+                    <Label Content="Кошелёк" Margin="0,0,10,0"/>
+                    <TextBox Width="120" Text="{Binding Path=Wallet.Currency, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="6">
+                    <Label Content="Стартовый баланс" Margin="0,0,10,0"/>
+                    <TextBox Width="120" Text="{Binding Path=Wallet.StartPrice, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Добавить" Width="100" Margin="6"/>
+            <Button Content="Отмена" Width="100" Margin="6" Command="{Binding CloseWinCommand}"/>
+        </StackPanel>
+    </Grid>
+</Window>

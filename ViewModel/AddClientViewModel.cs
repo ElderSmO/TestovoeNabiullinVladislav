@@ -1,26 +1,61 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.ComponentModel;
-using System.Linq;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using TestovoeNabiullinVladislav.View;
+using TestovoeNabiullinVladislav.Events;
 
 namespace TestovoeNabiullinVladislav.ViewModel
 {
     public class AddClientViewModel : INotifyPropertyChanged
     {
-        private ComandsMVVM _openAdminWindowCommand;
-        Window thisWindow { get; set; }
-        private ComandsMVVM closeCommand;
+        Window thisWindow {  get; set; }
+        private ComandsMVVM userCommand;
+        private Client client;
 
-        public AddClientViewModel()
+        private Client NewClient
         {
-
+            get => client;
+            set
+            {
+                client = value;
+                OnPropertyChanged("NewClient");
+            }
         }
 
+        public ComandsMVVM AddUserCommand
+        {
+            get
+            {
+                return userCommand ??
+                  (userCommand = new ComandsMVVM(obj =>
+                  {
+                      Debug.WriteLine(client.Name + " " + client.Wallet.Name);
+                      UserEvents.OnClientAdded(NewClient);
+                  }));
+            }
+        }
+
+        public ComandsMVVM CloseWinCommand
+        {
+            get
+            {
+                return userCommand ??
+                  (userCommand = new ComandsMVVM(obj =>
+                  {
+                      thisWindow.Close();
+                  }));
+            }
+        }
+        public AddClientViewModel(Window thisWin)
+        {
+            thisWindow = thisWin;
+            client = new Client
+            { 
+              Name = "User",
+              Wallet = new Wallet { Name = "1000"}
+            };
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")

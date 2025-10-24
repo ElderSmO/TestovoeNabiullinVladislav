@@ -11,20 +11,16 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using TestovoeNabiullinVladislav.MVVM;
 using TestovoeNabiullinVladislav.ViewModel;
 
 namespace TestovoeNabiullinVladislav.View
 {
-    /// <summary>
-    /// Логика взаимодействия для AddClientWindow.xaml
-    /// </summary>
-    public partial class AddClientWindow : Window
+    public partial class AddClientWin : Window
     {
-        public AddClientWindow()
+        public AddClientWin()
         {
             InitializeComponent();
-            DataContext = new AddClientViewModel();
+            DataContext = new AddClientViewModel(this);
         }
     }
 }
