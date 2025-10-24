@@ -1,0 +1,36 @@
+﻿<Window x:Class="TestovoeNabiullinVladislav.View.ClientWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TestovoeNabiullinVladislav.View"
+        mc:Ignorable="d"
+        Title="ClientWindow" Height="450" Width="450">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Image Source="/Icons/icons8_User_Default_512px.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+        <Grid Grid.Column="1" Margin="6">
+            <StackPanel Orientation="Vertical">
+                <Label Content="Кошелёк" HorizontalAlignment="Center"/>
+                <Label Content="Имя :"/>
+                <Label Content="Баланс Кошелька :"/>
+                <Label Content="Валюта :"/>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1" >
+            <StackPanel>
+                <Label Content="Перевод" HorizontalAlignment="Center"/>
+                <Button Content="Перевести деньги" HorizontalAlignment="Center" Width="140" Height="30"/>
+            </StackPanel>
+        </Grid>
+
+    </Grid>
+</Window>
