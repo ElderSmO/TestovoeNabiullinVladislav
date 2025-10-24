@@ -10,10 +10,11 @@ namespace TestovoeNabiullinVladislav.ViewModel
     public class AddClientViewModel : INotifyPropertyChanged
     {
         Window thisWindow {  get; set; }
-        private ComandsMVVM userCommand;
+        private ComandsMVVM addCommand;
+        private ComandsMVVM closeCommand;
         private Client client;
 
-        private Client NewClient
+        public Client NewClient
         {
             get => client;
             set
@@ -27,8 +28,8 @@ namespace TestovoeNabiullinVladislav.ViewModel
         {
             get
             {
-                return userCommand ??
-                  (userCommand = new ComandsMVVM(obj =>
+                return addCommand ??
+                  (addCommand = new ComandsMVVM(obj =>
                   {
                       Debug.WriteLine(client.Name + " " + client.Wallet.Name);
                       UserEvents.OnClientAdded(NewClient);
@@ -40,8 +41,8 @@ namespace TestovoeNabiullinVladislav.ViewModel
         {
             get
             {
-                return userCommand ??
-                  (userCommand = new ComandsMVVM(obj =>
+                return closeCommand ??
+                  (closeCommand = new ComandsMVVM(obj =>
                   {
                       thisWindow.Close();
                   }));
@@ -51,9 +52,9 @@ namespace TestovoeNabiullinVladislav.ViewModel
         {
             thisWindow = thisWin;
             client = new Client
-            { 
-              Name = "User",
-              Wallet = new Wallet { Name = "1000"}
+            {
+                Name = "User",
+                Wallet = new Wallet { Name = "Wallet", StartBalance = 1000 }
             };
         }
 

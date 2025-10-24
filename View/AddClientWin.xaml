@@ -13,30 +13,30 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Label HorizontalAlignment="Center" FontSize="23" Margin="6" Content="Добавление клиента"/>
-        <StackPanel DataContext="{Binding Client}" Grid.Row="1" Orientation="Horizontal">
+        <StackPanel DataContext="{Binding NewClient}" Grid.Row="1" Orientation="Horizontal">
         <StackPanel Grid.Row="1" Margin="6">
             <StackPanel Orientation="Horizontal" Margin="6">
                 <Label Content="Имя" Margin="0,0,10,0"/>
-                    <TextBox Width="120" Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Width="120" Text="{Binding Path=Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="6">
                 <Label Content="Валюта" Margin="0,0,10,0"/>
-                <ComboBox Width="120"/>
+                <ComboBox DataContext="{Binding Wallet}" ItemsSource="{Binding Currency}" SelectedIndex="0" Width="120"/>
             </StackPanel>
         </StackPanel>
             <StackPanel Grid.Row="1" Margin="6">
                 <StackPanel Orientation="Horizontal" Margin="6">
                     <Label Content="Кошелёк" Margin="0,0,10,0"/>
-                    <TextBox Width="120" Text="{Binding Path=Wallet.Currency, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox DataContext="{Binding Wallet}" Width="120" Text="{Binding Path= Name,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="6">
                     <Label Content="Стартовый баланс" Margin="0,0,10,0"/>
-                    <TextBox Width="120" Text="{Binding Path=Wallet.StartPrice, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox DataContext="{Binding Wallet}" Width="120" Text="{Binding Path=StartBalance, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Добавить" Width="100" Margin="6"/>
+            <Button Content="Добавить" Width="100" Margin="6" Command="{Binding AddUserCommand}"/>
             <Button Content="Отмена" Width="100" Margin="6" Command="{Binding CloseWinCommand}"/>
         </StackPanel>
     </Grid>
