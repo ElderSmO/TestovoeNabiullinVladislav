@@ -14,6 +14,9 @@ namespace TestovoeNabiullinVladislav
         private string name;
         private List<String> currency;
         private double startBalance;
+        private double balance;
+        private double amountOfIncome;
+        private double amountOfExpenses;
 
         public int Id 
         { 
@@ -34,6 +37,22 @@ namespace TestovoeNabiullinVladislav
         { 
             get => startBalance;
             set { startBalance = value; OnPropertyChanged("StartBalance"); }
+        }
+        public double Balance 
+        { 
+            get => balance = startBalance+amountOfIncome-AmountOfIncome;
+            set { balance = value; OnPropertyChanged("Balance"); }
+        }
+        public double AmountOfIncome
+        { 
+            get => amountOfIncome;
+            set { amountOfIncome = value; OnPropertyChanged("AmountOfIncome"); }
+        }
+        
+        public double AmountOfExpenses
+        { 
+            get => amountOfExpenses;
+            set { amountOfExpenses = value; OnPropertyChanged("AmountOfExpenses"); }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

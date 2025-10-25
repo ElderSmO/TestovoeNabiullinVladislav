@@ -22,16 +22,20 @@
             <StackPanel Margin="6">
                 <Label Content="Поиск"/>
                 <TextBox/>
-                <Button Content="Добавить Клиента" Margin="6" Command="{Binding AddUserCommand}"/>
+                <Button Content="Добавить Клиента" Margin="6" Height="30" Width="170" Command="{Binding AddUserCommand}"/>
+                <Button Content="Удалить Клиента" Margin="6" Height="30" Width="170" Command="{Binding DeleteUserCommand}"/>
             </StackPanel>
         </Grid>
 
-        <DataGrid AutoGenerateColumns="False">
+        <DataGrid DataContext="{Binding DataBase}"  ItemsSource="{Binding ObservClients, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="id"/>
-                <DataGridTextColumn Header="Имя пользователя"/>
-                <DataGridTextColumn Header="Баланс"/>
-                <DataGridTextColumn Header="Кошелёк"/>
+                <DataGridTextColumn Header="id" Binding="{Binding Id}"/>
+                <DataGridTextColumn Header="Имя пользователя" Binding="{Binding Name, Mode=TwoWay}"/>
+                <DataGridTextColumn  Header="Начальный баланс" Binding="{Binding Wallet.StartBalance}"/>
+                <DataGridTextColumn Header="Баланс" Binding="{Binding Wallet.Balance}"/>
+                <DataGridTextColumn Header="Сумма доходов" Binding="{Binding Wallet.AmountOfIncome}"/>
+                <DataGridTextColumn Header="Сумма расходов" Binding="{Binding Wallet.AmountOfExpenses}"/>
+                <DataGridTextColumn Header="Кошелёк" Binding="{Binding Wallet.Name}"/>
             </DataGrid.Columns>
         </DataGrid>
         <DataGrid Grid.Row="1">

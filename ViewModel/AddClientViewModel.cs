@@ -33,6 +33,7 @@ namespace TestovoeNabiullinVladislav.ViewModel
                   {
                       Debug.WriteLine(client.Name + " " + client.Wallet.Name);
                       UserEvents.OnClientAdded(NewClient);
+                      thisWindow.Close();
                   }));
             }
         }
