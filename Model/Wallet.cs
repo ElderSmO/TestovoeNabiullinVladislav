@@ -12,7 +12,7 @@ namespace TestovoeNabiullinVladislav
     {
         private int id;
         private string name;
-        private List<String> currency;
+        private string currency;
         private double startBalance;
         private double balance;
         private double amountOfIncome;
@@ -28,7 +28,7 @@ namespace TestovoeNabiullinVladislav
             get => name;
             set { name = value; OnPropertyChanged("Name"); }
         }
-        public List<string> Currency 
+        public string Currency 
         { 
             get => currency;
             set { currency = value; OnPropertyChanged("Currency"); }
@@ -39,8 +39,8 @@ namespace TestovoeNabiullinVladislav
             set { startBalance = value; OnPropertyChanged("StartBalance"); }
         }
         public double Balance 
-        { 
-            get => balance = startBalance+amountOfIncome-AmountOfIncome;
+        {
+            get => balance;
             set { balance = value; OnPropertyChanged("Balance"); }
         }
         public double AmountOfIncome
@@ -63,12 +63,6 @@ namespace TestovoeNabiullinVladislav
         }
         public Wallet()
         {
-            currency = new List<string>()
-            {
-                "USD",
-                "RUB",
-                "EUR"
-            };
 
 
         }

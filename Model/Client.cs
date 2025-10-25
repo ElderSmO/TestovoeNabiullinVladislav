@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -13,8 +14,19 @@ namespace TestovoeNabiullinVladislav
         private int id;
         private string name;
         private Wallet wallet;
+        private ObservableCollection<Transaction> transactions;
 
-       public int Id
+        public ObservableCollection<Transaction> Transactions 
+        {
+            get => transactions;
+            set
+            {
+                transactions = value;
+                OnPropertyChanged("Transactions");
+            }
+        }
+
+        public int Id
         {
             get => id;
             set

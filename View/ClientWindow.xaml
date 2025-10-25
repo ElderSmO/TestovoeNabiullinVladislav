@@ -17,20 +17,52 @@
         </Grid.RowDefinitions>
 
         <Image Source="/Icons/icons8_User_Default_512px.png" RenderOptions.BitmapScalingMode="HighQuality"/>
-        <Grid Grid.Column="1" Margin="6">
+
+        <Grid DataContext="{Binding ThisClient}" Grid.Column="1">
             <StackPanel Orientation="Vertical">
                 <Label Content="Кошелёк" HorizontalAlignment="Center"/>
-                <Label Content="Имя :"/>
-                <Label Content="Баланс Кошелька :"/>
-                <Label Content="Валюта :"/>
-            </StackPanel>
-        </Grid>
-        <Grid Grid.Row="1" >
-            <StackPanel>
-                <Label Content="Перевод" HorizontalAlignment="Center"/>
-                <Button Content="Перевести деньги" HorizontalAlignment="Center" Width="140" Height="30"/>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Имя :"/>
+                    <Label Content="{Binding Name}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Баланс Кошелька :"/>
+                    <Label Content="{Binding Wallet.Balance, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Валюта :"/>
+                    <Label Content="{Binding Wallet.Name}"/>
+                </StackPanel>
             </StackPanel>
         </Grid>
 
+        <Grid Grid.Row="1" Grid.ColumnSpan="2">
+            <StackPanel>
+                <Label Content="Перевод клиенту" HorizontalAlignment="Center"/>
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="7">
+                        <Label Content="Выберите клиента для перевода" VerticalAlignment="Center"/>
+                        <ComboBox Width="170" 
+                              ItemsSource="{Binding DataBase.ObservClients}"
+                              SelectedItem="{Binding SelectedClient, Mode=TwoWay}"
+                              DisplayMemberPath="Name">
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="7">
+                        <Label Content="Сумма перевода" VerticalAlignment="Center"/>
+                        <TextBox Width="150" Text="{Binding TransferAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Button Content="Перевод" Width="100" Height="30" Margin="5" 
+                            Command="{Binding TransferUserCommand}"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>

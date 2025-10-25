@@ -24,13 +24,14 @@
                 <TextBox/>
                 <Button Content="Добавить Клиента" Margin="6" Height="30" Width="170" Command="{Binding AddUserCommand}"/>
                 <Button Content="Удалить Клиента" Margin="6" Height="30" Width="170" Command="{Binding DeleteUserCommand}"/>
+                <Button Content="Открыть клиента" Margin="6" Height="30" Width="170" Command="{Binding OpenUserCommand}"/>
             </StackPanel>
         </Grid>
 
-        <DataGrid DataContext="{Binding DataBase}"  ItemsSource="{Binding ObservClients, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True">
+        <DataGrid SelectedItem="{Binding SelectedClient, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding DataBase.ObservClients}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="id" Binding="{Binding Id}"/>
-                <DataGridTextColumn Header="Имя пользователя" Binding="{Binding Name, Mode=TwoWay}"/>
+                <DataGridTextColumn Header="Имя пользователя" Binding="{Binding Name}"/>
                 <DataGridTextColumn  Header="Начальный баланс" Binding="{Binding Wallet.StartBalance}"/>
                 <DataGridTextColumn Header="Баланс" Binding="{Binding Wallet.Balance}"/>
                 <DataGridTextColumn Header="Сумма доходов" Binding="{Binding Wallet.AmountOfIncome}"/>
@@ -38,8 +39,13 @@
                 <DataGridTextColumn Header="Кошелёк" Binding="{Binding Wallet.Name}"/>
             </DataGrid.Columns>
         </DataGrid>
-        <DataGrid Grid.Row="1">
-      
+        <DataGrid Grid.Row="2" ItemsSource="{Binding SelectedClient.Transactions}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="id" Binding="{Binding Id}"/>
+                <DataGridTextColumn  Header="Сумма" Binding="{Binding Amount}"/>
+                <DataGridTextColumn Header="Дата" Binding="{Binding Date}"/>
+                <DataGridTextColumn Header="Тип транзацкции" Binding="{Binding TypeTransaction}"/>
+            </DataGrid.Columns>
         </DataGrid>
 
     </Grid>

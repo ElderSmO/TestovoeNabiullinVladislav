@@ -3,6 +3,8 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Windows;
+using System.Windows.Data;
 using TestovoeNabiullinVladislav.Events;
 using TestovoeNabiullinVladislav.FileDataBaseFolder;
 using TestovoeNabiullinVladislav.View;
@@ -11,13 +13,13 @@ namespace TestovoeNabiullinVladislav.ViewModel
 {
     internal class AdminPageViewModel : INotifyPropertyChanged
     {
-
-        Client selectedCLient {  get; set; }
         private FileDataBase dataBase;
+        private Client selectedClient;
+
         public FileDataBase DataBase
         {
             get => dataBase;
-            set { dataBase = value; OnPropertyChanged("DataBase"); }
+            set { dataBase = value; OnPropertyChanged(); }
         }
 
         public Client SelectedClient
@@ -26,15 +28,14 @@ namespace TestovoeNabiullinVladislav.ViewModel
             set
             {
                 selectedClient = value;
-                OnPropertyChanged("SelectedClient");
+                OnPropertyChanged();
+                
             }
         }
-        
-        
+
         private ComandsMVVM addUserCommand;
-        
         private ComandsMVVM deleteUserCommand;
-        private Client selectedClient;
+        private ComandsMVVM openUserCommand;
 
         public ComandsMVVM AddUserCommand
         {
@@ -48,6 +49,26 @@ namespace TestovoeNabiullinVladislav.ViewModel
                   }));
             }
         }
+        public ComandsMVVM OpenUserCommand
+        {
+            get
+            {
+                return openUserCommand ??
+                  (openUserCommand = new ComandsMVVM(obj =>
+                  {
+                      if (SelectedClient != null)
+                      {
+                          ClientWindow clientWindow = new ClientWindow(SelectedClient);
+                          clientWindow.ShowDialog();
+                      }
+                      else
+                      {
+                          MessageBox.Show("Клиент не выбран");
+                      }
+                  }));
+            }
+        }
+
         public ComandsMVVM DeleteUserCommand
         {
             get
@@ -55,29 +76,39 @@ namespace TestovoeNabiullinVladislav.ViewModel
                 return deleteUserCommand ??
                   (deleteUserCommand = new ComandsMVVM(obj =>
                   {
-                      if (selectedClient!=null)
-                      dataBase.ObservClients.Remove(selectedClient);
+                      if (SelectedClient != null) 
+                      {
+                          DataBase.ObservClients.Remove(SelectedClient);
+                          SelectedClient = null;
+                          DataOperations.WriteData(dataBase);
+                      }
                   }));
             }
         }
 
         public AdminPageViewModel()
         {
-            dataBase = new FileDataBase()
+            dataBase = DataOperations.ReadData() ?? new FileDataBase()
             {
-                ObservClients = new ObservableCollection<Client>()
+                ObservClients = new ObservableCollection<Client>(),
             };
             UserEvents.clientAddHandler += ClientAdded;
-        }
-        /// <summary>
-        /// Получение нового клиента по событию
-        /// </summary>
-        /// <param name="client">Клиент</param>
-        public void ClientAdded(Client client)
-        {
-            dataBase.ObservClients.Add(client);
+            UserEvents.ClientPayHandler += UpdateData;
         }
 
+        void UpdateData()
+        {
+            //DataOperations.ReadData();
+            //DataOperations.WriteData(dataBase);
+            DataBase.RefreshCollection();
+            OnPropertyChanged(nameof(DataBase));
+        }
+
+        void ClientAdded(Client client)
+        {
+            dataBase.ObservClients.Add(client);
+            DataOperations.WriteData(dataBase);
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void OnPropertyChanged([CallerMemberName] string prop = "")

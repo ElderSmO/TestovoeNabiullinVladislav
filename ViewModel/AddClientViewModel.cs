@@ -1,18 +1,36 @@
 ﻿
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Net;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using TestovoeNabiullinVladislav.Events;
+using TestovoeNabiullinVladislav.FileDataBaseFolder;
 
 namespace TestovoeNabiullinVladislav.ViewModel
 {
     public class AddClientViewModel : INotifyPropertyChanged
     {
+        private FileDataBase dataBase {  get; set; }
         Window thisWindow {  get; set; }
         private ComandsMVVM addCommand;
         private ComandsMVVM closeCommand;
         private Client client;
+        private ObservableCollection<string> currencyList;
+
+
+
+        public ObservableCollection<string> CurrencyList
+        {
+            get => currencyList;
+            set
+            {
+                currencyList = value;
+                OnPropertyChanged("CurrencyList");
+            }
+        }
 
         public Client NewClient
         {
@@ -31,8 +49,16 @@ namespace TestovoeNabiullinVladislav.ViewModel
                 return addCommand ??
                   (addCommand = new ComandsMVVM(obj =>
                   {
-                      Debug.WriteLine(client.Name + " " + client.Wallet.Name);
-                      UserEvents.OnClientAdded(NewClient);
+                      NewClient.Wallet.Name += " Wallet";
+                      
+                      dataBase = DataOperations.ReadData();
+                      if (dataBase != null)
+                      {
+                          NewClient.Id = dataBase.ObservClients.Count + 1;
+                      }
+                      else NewClient.Id = 1;
+
+                          UserEvents.OnClientAdded(NewClient);
                       thisWindow.Close();
                   }));
             }
@@ -55,8 +81,17 @@ namespace TestovoeNabiullinVladislav.ViewModel
             client = new Client
             {
                 Name = "User",
-                Wallet = new Wallet { Name = "Wallet", StartBalance = 1000 }
+                Wallet = new Wallet 
+                { 
+                    Name = "NoName", StartBalance = 1000,
+                },
             };
+            CurrencyList = new ObservableCollection<string>
+                {
+                 "USD",
+                 "RUB",
+                 "EUR"
+                };
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

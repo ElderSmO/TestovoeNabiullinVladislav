@@ -20,7 +20,7 @@ namespace TestovoeNabiullinVladislav.Events
             clientAddHandler?.Invoke(client);
         }
 
-        public delegate void ClientPay(double sum, string currency);
+        public delegate void ClientPay();
         public static event ClientPay ClientPayHandler;
 
         /// <summary>
@@ -28,9 +28,9 @@ namespace TestovoeNabiullinVladislav.Events
         /// </summary>
         /// <param name="sum">Сумма перевода</param>
         /// <param name="currency">Валюта</param>
-        public static void OnClientPay(double sum, string currency)
+        public static void OnClientPay()
         {
-            ClientPayHandler?.Invoke(sum, currency);
+            ClientPayHandler?.Invoke();
         }
     }
 }

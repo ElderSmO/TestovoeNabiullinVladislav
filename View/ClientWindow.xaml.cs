@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TestovoeNabiullinVladislav.ViewModel;
 
 namespace TestovoeNabiullinVladislav.View
 {
@@ -19,9 +20,10 @@ namespace TestovoeNabiullinVladislav.View
     /// </summary>
     public partial class ClientWindow : Window
     {
-        public ClientWindow()
+        public ClientWindow(Client client)
         {
             InitializeComponent();
+            DataContext = new ClientWinViewModel(client);
         }
     }
 }

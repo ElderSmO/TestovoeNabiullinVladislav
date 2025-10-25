@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 namespace TestovoeNabiullinVladislav.FileDataBaseFolder
@@ -14,6 +15,13 @@ namespace TestovoeNabiullinVladislav.FileDataBaseFolder
         {
             get => observClients;
             set { observClients = value; OnPropertyChanged("ObservClients"); }
+        }
+
+        // Метод для принудительного обновления коллекции
+        public void RefreshCollection()
+        {
+            var temp = ObservClients.ToList();
+            ObservClients = new ObservableCollection<Client>(temp);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
