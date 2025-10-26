@@ -18,13 +18,16 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Column="1">
+        <Grid Grid.Column="1" Grid.RowSpan="2">
             <StackPanel Margin="6">
-                <Label Content="Поиск"/>
-                <TextBox/>
-                <Button Content="Добавить Клиента" Margin="6" Height="30" Width="170" Command="{Binding AddUserCommand}"/>
-                <Button Content="Удалить Клиента" Margin="6" Height="30" Width="170" Command="{Binding DeleteUserCommand}"/>
-                <Button Content="Открыть клиента" Margin="6" Height="30" Width="170" Command="{Binding OpenUserCommand}"/>
+                <!--<Label Content="Поиск"/>
+                <TextBox/>-->
+                <DatePicker Margin="5" SelectedDate="{Binding SortSelectedDate}"/>
+                <Button Content="Добавить Клиента" Margin="5" Height="30" Width="170" Command="{Binding AddUserCommand}"/>
+                <Button Content="Удалить Клиента" Margin="5" Height="30" Width="170" Command="{Binding DeleteUserCommand}"/>
+                <Button Content="Открыть клиента" Margin="5" Height="30" Width="170" Command="{Binding OpenUserCommand}"/>
+                <Button Content="Траты кошклька" Margin="5" Height="30" Width="170" Command="{Binding ExpensesUserCommand}"/>
+                <Button Content="Группировка транзакций" Margin="5" Height="30" Width="170" Command="{Binding GroupTransactionsUserCommand}"/>
             </StackPanel>
         </Grid>
 
@@ -37,6 +40,7 @@
                 <DataGridTextColumn Header="Сумма доходов" Binding="{Binding Wallet.AmountOfIncome}"/>
                 <DataGridTextColumn Header="Сумма расходов" Binding="{Binding Wallet.AmountOfExpenses}"/>
                 <DataGridTextColumn Header="Кошелёк" Binding="{Binding Wallet.Name}"/>
+                <DataGridTextColumn Header="Валюта" Binding="{Binding Wallet.Currency}"/>
             </DataGrid.Columns>
         </DataGrid>
         <DataGrid Grid.Row="2" ItemsSource="{Binding SelectedClient.Transactions}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True">
@@ -45,6 +49,7 @@
                 <DataGridTextColumn  Header="Сумма" Binding="{Binding Amount}"/>
                 <DataGridTextColumn Header="Дата" Binding="{Binding Date}"/>
                 <DataGridTextColumn Header="Тип транзацкции" Binding="{Binding TypeTransaction}"/>
+                
             </DataGrid.Columns>
         </DataGrid>
 

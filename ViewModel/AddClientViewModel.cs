@@ -19,9 +19,20 @@ namespace TestovoeNabiullinVladislav.ViewModel
         private ComandsMVVM closeCommand;
         private Client client;
         private ObservableCollection<string> currencyList;
+        
+        private int selectedCurrencyId;
 
 
 
+        public int SelectedCurrencyId
+        {
+            get => selectedCurrencyId;
+            set
+            {
+                selectedCurrencyId = value;
+                OnPropertyChanged("SelectedCurrencyId");
+            }
+        }
         public ObservableCollection<string> CurrencyList
         {
             get => currencyList;
@@ -57,7 +68,8 @@ namespace TestovoeNabiullinVladislav.ViewModel
                           NewClient.Id = dataBase.ObservClients.Count + 1;
                       }
                       else NewClient.Id = 1;
-
+                      NewClient.Wallet.Currency = CurrencyList[SelectedCurrencyId];
+                      NewClient.Wallet.Balance = NewClient.Wallet.StartBalance;
                           UserEvents.OnClientAdded(NewClient);
                       thisWindow.Close();
                   }));
@@ -81,10 +93,12 @@ namespace TestovoeNabiullinVladislav.ViewModel
             client = new Client
             {
                 Name = "User",
-                Wallet = new Wallet 
-                { 
-                    Name = "NoName", StartBalance = 1000,
+                Wallet = new Wallet
+                {
+                    Name = "NoName",
+                    StartBalance = 1000,
                 },
+                Transactions = new ObservableCollection<Transaction>()
             };
             CurrencyList = new ObservableCollection<string>
                 {
@@ -92,6 +106,7 @@ namespace TestovoeNabiullinVladislav.ViewModel
                  "RUB",
                  "EUR"
                 };
+            
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

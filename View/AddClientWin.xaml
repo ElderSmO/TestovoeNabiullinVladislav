@@ -29,7 +29,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,5">
                     <Label Content="Валюта" Width="120"/>
-                    <ComboBox Width="150" SelectedIndex="0"
+                    <ComboBox Width="150" SelectedIndex="{Binding SelectedCurrencyId, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                           ItemsSource="{Binding CurrencyList}"
                           SelectedItem="{Binding NewClient.Wallet.Name, Mode=TwoWay}"/>
                 </StackPanel>

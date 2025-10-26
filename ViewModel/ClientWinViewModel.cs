@@ -67,27 +67,13 @@ namespace TestovoeNabiullinVladislav.ViewModel
               {
                   if (SelectedClient != null && TransferAmount > 0 && ThisClient != SelectedClient)
                   {
-                      if (ThisClient.Wallet.Balance >= TransferAmount)
+                      if (thisClient.Wallet.Currency == selectedClient.Wallet.Currency)
                       {
-                          // Ваша текущая логика...
-                          Client thisClientInDb = DataBase.ObservClients.First(a => a.Id == ThisClient.Id);
-                          Client selectedClientInDb = DataBase.ObservClients.First(a => a.Id == SelectedClient.Id);
-
-                          thisClientInDb.Wallet.Balance -= TransferAmount;
-                          selectedClientInDb.Wallet.Balance += TransferAmount;
-
-                          ThisClient = thisClientInDb;
-                          SelectedClient = selectedClientInDb;
-
-                          DataBase.RefreshCollection();
-                          OnPropertyChanged(nameof(DataBase));
-
-
-                          DataOperations.WriteData(DataBase);
-
-                          MessageBox.Show($"Перевод выполнен!");
-                          TransferAmount = 0;
+                          
+                          UserEvents.OnClientPay(TransferAmount, thisClient.Id, SelectedClient.Id);
                       }
+                      else MessageBox.Show("Перевод на другую валюту не возможен");
+                      
                   }
               }));
     }
