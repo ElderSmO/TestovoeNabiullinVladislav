@@ -14,7 +14,7 @@ using TestovoeNabiullinVladislav.View;
 
 namespace TestovoeNabiullinVladislav.ViewModel
 {
-    internal class AdminPageViewModel : INotifyPropertyChanged
+    public class AdminPageViewModel : INotifyPropertyChanged
     {
         private FileDataBase dataBase;
         private Client selectedClient;
@@ -180,7 +180,7 @@ namespace TestovoeNabiullinVladislav.ViewModel
             UserEvents.ClientPayHandler += TransferMoney;
         }
 
-        void TransferMoney(double amount, int id_Client, int id_SelectedClient)
+       public void TransferMoney(double amount, int id_Client, int id_SelectedClient)
         {
                 Client thisClientInDb = DataBase.ObservClients.First(a => a.Id == id_Client);
                 Client selectedClientInDb = DataBase.ObservClients.First(a => a.Id == id_SelectedClient);
@@ -220,7 +220,7 @@ namespace TestovoeNabiullinVladislav.ViewModel
             
         }
 
-        void ClientAdded(Client client)
+        public void ClientAdded(Client client)
         {
             dataBase.ObservClients.Add(client);
             DataOperations.WriteData(dataBase);
